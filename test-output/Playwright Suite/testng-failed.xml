@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Playwright Suite]">
+  <test thread-count="5" name="Demo Test(failed)">
+    <classes>
+      <class name="tests.RegistrationTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="testRegistrationForm"/>
+        </methods>
+      </class> <!-- tests.RegistrationTest -->
+    </classes>
+  </test> <!-- Demo Test(failed) -->
+</suite> <!-- Failed suite [Playwright Suite] -->

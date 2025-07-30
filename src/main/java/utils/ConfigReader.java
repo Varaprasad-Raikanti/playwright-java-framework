@@ -5,19 +5,18 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static Properties properties;
+    private static final Properties properties = new Properties();
 
-    public static void loadConfig() {
-        properties = new Properties();
+    static {
         try {
-            FileInputStream fis = new FileInputStream("config.properties");
+            FileInputStream fis = new FileInputStream("src/test/resources/config/config.properties");
             properties.load(fis);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String get(String key) {
+    public static String getProperty(String key) {
         return properties.getProperty(key);
     }
 }

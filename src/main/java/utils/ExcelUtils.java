@@ -4,40 +4,43 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExcelUtils {
 
-    public static Map<String, String> getTestData(String filePath, String sheetName, int rowNumber) {
-        Map<String, String> data = new HashMap<>();
+	public static Map<String, String> getTestData(String excelPath, String sheetName, int rowNumber) {
+	    Map<String, String> data = new HashMap<>();
+	    try {
+	        FileInputStream fis = new FileInputStream(excelPath);
+	        Workbook workbook = new XSSFWorkbook(fis);
+	        Sheet sheet = workbook.getSheet(sheetName);
+	        Row headerRow = sheet.getRow(0);
+	        Row dataRow = sheet.getRow(rowNumber);
 
-        try (FileInputStream fis = new FileInputStream(filePath);
-             Workbook workbook = new XSSFWorkbook(fis)) {
+	        for (int i = 0; i < headerRow.getLastCellNum(); i++) {
+	            Cell headerCell = headerRow.getCell(i);
+	            Cell valueCell = dataRow.getCell(i);
 
-            Sheet sheet = workbook.getSheet(sheetName);
-            Row headerRow = sheet.getRow(0);
-            Row dataRow = sheet.getRow(rowNumber);
+	            String key = headerCell.getStringCellValue();
+	            String value = "";
 
-            for (int i = 0; i < headerRow.getLastCellNum(); i++) {
-                String key = headerRow.getCell(i).getStringCellValue();
-                String value = getCellValue(dataRow.getCell(i));
-                data.put(key, value);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	            if (valueCell.getCellType() == CellType.STRING) {
+	                value = valueCell.getStringCellValue();
+	            } else if (valueCell.getCellType() == CellType.NUMERIC) {
+	                value = String.valueOf((long) valueCell.getNumericCellValue());
+	            }
 
-        return data;
-    }
+	            data.put(key, value);
+	        }
 
-    private static String getCellValue(Cell cell) {
-        if (cell == null) return "";
-        return switch (cell.getCellType()) {
-            case STRING -> cell.getStringCellValue();
-            case NUMERIC -> String.valueOf(cell.getNumericCellValue());
-            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
-            default -> "";
-        };
-    }
+	        workbook.close();
+	        fis.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return data;
+	}
+
 }
