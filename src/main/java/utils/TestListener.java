@@ -1,30 +1,38 @@
 package utils;
 
-import base.TestBase;
 import com.microsoft.playwright.Page;
-import org.testng.ITestContext;
+import io.qameta.allure.Allure;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import java.io.ByteArrayInputStream;
+import java.lang.reflect.Field;
 
 public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        Object currentClass = result.getInstance();
         try {
-            // Get the "page" field using reflection
-            java.lang.reflect.Field pageField = currentClass.getClass().getSuperclass().getDeclaredField("page");
+            Object testInstance = result.getInstance();
+
+            // Get private 'page' field from current test class (not superclass!)
+            Field pageField = testInstance.getClass().getDeclaredField("page");
             pageField.setAccessible(true);
-            Page page = (Page) pageField.get(currentClass);
+            Page page = (Page) pageField.get(testInstance);
 
             if (page != null) {
-                ScreenshotUtils.attachScreenshot(page, "Failure Screenshot - " + result.getName());
+                byte[] screenshot = page.screenshot(new Page.ScreenshotOptions().setFullPage(true));
+                Allure.addAttachment("Failure Screenshot - " + result.getName(), "image/png",
+                        new ByteArrayInputStream(screenshot), ".png");
+                System.out.println(" Screenshot attached to Allure.");
+            } else {
+                System.out.println("Page is null. Screenshot not taken.");
             }
 
+        } catch (NoSuchFieldException nsfe) {
+            System.out.println("'page' field not found in test class: " + nsfe.getMessage());
         } catch (Exception e) {
-            System.out.println("❌ Failed to attach screenshot: " + e.getMessage());
+            System.out.println(" Screenshot capture failed: " + e.getMessage());
         }
     }
-
-    // You can optionally override other methods like onTestSuccess/onTestSkipped here
 }

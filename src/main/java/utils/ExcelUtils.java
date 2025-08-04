@@ -92,4 +92,9 @@ public class ExcelUtils {
 
         return dataList;
     }
+    
+    public static Iterator<Object[]> getExcelData(String filePath, String sheetName) {
+        List<Map<String, String>> allData = ExcelUtils.readAllData(filePath, sheetName);
+        return allData.stream().map(data -> new Object[]{data}).iterator();
+    }
 }

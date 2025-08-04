@@ -1,0 +1,1 @@
+{"uuid":"53436315-46a7-41a0-829a-ecf1bbb33b28","name":"tests.OXO.OXO_ST_001_logIn","children":["8495b156-75a0-4591-a4a0-eb51ef4d49c0"],"befores":[{"name":"setupConfig","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1754317736793,"stop":1754317740746}],"afters":[],"start":1754317736763,"stop":1754317745354}

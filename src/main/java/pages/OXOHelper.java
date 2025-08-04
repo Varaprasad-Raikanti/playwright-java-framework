@@ -1,10 +1,14 @@
 package pages;
 
+import java.io.ByteArrayInputStream;
+
 import org.testng.Assert;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
+
+import io.qameta.allure.Allure;
 
 public class OXOHelper {
     private final Page page;
@@ -22,12 +26,21 @@ public class OXOHelper {
         try {
             page.click("//button[text()='Acceptting cookies']");
 
-            // Add a wait or validation to ensure the cookie popup is dismissed
+            // Optional: Wait or verify cookie popup is dismissed
             boolean isCookiePopupGone = page.isHidden("//button[text()='Acceptting cookies']");
             Assert.assertTrue(isCookiePopupGone, "✅ Cookie popup declined successfully.");
 
         } catch (Exception e) {
-            // Log and fail the test if any step fails
+            try {
+                // ✅ Take screenshot and attach to Allure
+                byte[] screenshot = page.screenshot(new Page.ScreenshotOptions().setFullPage(true));
+                Allure.addAttachment("Failure Screenshot", "image/png", new ByteArrayInputStream(screenshot), ".png");
+                System.out.println("📸 Screenshot captured and attached to Allure.");
+            } catch (Exception ex) {
+                System.out.println("⚠️ Could not capture screenshot: " + ex.getMessage());
+            }
+
+            // ❌ Fail the test with message
             Assert.fail("❌ Failed to decline cookies: " + e.getMessage());
         }
     }

@@ -87,8 +87,9 @@
     <version>3.2.5</version>
     <configuration>
         <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/Testdemo.xml</suiteXmlFile>
-        </suiteXmlFiles>
+    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+</suiteXmlFiles>
+
         <testFailureIgnore>false</testFailureIgnore>
         <useSystemClassLoader>true</useSystemClassLoader>
     </configuration>
