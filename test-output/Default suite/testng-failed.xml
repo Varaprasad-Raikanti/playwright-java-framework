@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.RegistrationTest">
+      <class name="tests.OXO.OXO_ST_001_logIn2">
         <methods>
-          <include name="setup"/>
-          <include name="tearDown"/>
+          <include name="loginForm" invocation-numbers="0"/>
           <include name="setupConfig"/>
-          <include name="testRegistrationForm" invocation-numbers="0"/>
+          <include name="tearDown"/>
+          <include name="setup"/>
         </methods>
-      </class> <!-- tests.RegistrationTest -->
+      </class> <!-- tests.OXO.OXO_ST_001_logIn2 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

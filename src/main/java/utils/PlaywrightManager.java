@@ -4,56 +4,58 @@ import com.microsoft.playwright.*;
 
 public class PlaywrightManager {
 
-    private static Playwright playwright;
-    private static Browser browserInstance;
-    private static BrowserContext context;
-    private static Page page;
+    private static ThreadLocal<Playwright> playwright = new ThreadLocal<>();
+    private static ThreadLocal<Browser> browser = new ThreadLocal<>();
+    private static ThreadLocal<BrowserContext> context = new ThreadLocal<>();
+    private static ThreadLocal<Page> page = new ThreadLocal<>();
 
     public static void initialize(String browserName) {
-        if (playwright != null) {
-            return; // Already initialized
-        }
-
-        playwright = Playwright.create();
+        Playwright pw = Playwright.create();
+        playwright.set(pw);
 
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions()
                 .setHeadless(Boolean.parseBoolean(ConfigReader.getProperty("headless")));
 
         switch (browserName.toLowerCase()) {
             case "chromium":
-                browserInstance = playwright.chromium().launch(options);
+                browser.set(pw.chromium().launch(options));
                 break;
             case "firefox":
-                browserInstance = playwright.firefox().launch(options);
+                browser.set(pw.firefox().launch(options));
                 break;
             case "webkit":
-                browserInstance = playwright.webkit().launch(options);
+                browser.set(pw.webkit().launch(options));
+                break;
+            case "chrome":
+                browser.set(pw.chromium().launch(options.setChannel("chrome")));
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported browser: " + browserName);
         }
 
-        context = browserInstance.newContext();
-        page = context.newPage();
+        context.set(browser.get().newContext());
+        page.set(context.get().newPage());
+
         System.out.println("Playwright initialized with browser: " + browserName);
     }
 
     public static Page getPage() {
-        if (page == null) {
-            throw new IllegalStateException("Page not initialized. Call initialize() first.");
-        }
-        return page;
+        return page.get();
+    }
+
+    public static BrowserContext getContext() {
+        return context.get();
     }
 
     public static void tearDown() {
-        if (context != null) context.close();
-        if (browserInstance != null) browserInstance.close();
-        if (playwright != null) playwright.close();
+        if (context.get() != null) context.get().close();
+        if (browser.get() != null) browser.get().close();
+        if (playwright.get() != null) playwright.get().close();
 
-        playwright = null;
-        browserInstance = null;
-        context = null;
-        page = null;
+        playwright.remove();
+        browser.remove();
+        context.remove();
+        page.remove();
 
         System.out.println("Playwright resources cleaned up.");
     }

@@ -1,6 +1,10 @@
 package pages;
 
+import org.testng.Assert;
+
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.assertions.PlaywrightAssertions;
 
 public class OXOHelper {
     private final Page page;
@@ -9,18 +13,25 @@ public class OXOHelper {
         this.page = page;
     }
     
-    public void Login() {
-        page.click("#firstName");;
+    public void aceept_Cookies() {
+    	page.click("//button[text()='Accept All']");
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+ 
+    public void decline_Cookies() {
+        try {
+            page.click("//button[text()='Acceptting cookies']");
+
+            // Add a wait or validation to ensure the cookie popup is dismissed
+            boolean isCookiePopupGone = page.isHidden("//button[text()='Acceptting cookies']");
+            Assert.assertTrue(isCookiePopupGone, "✅ Cookie popup declined successfully.");
+
+        } catch (Exception e) {
+            // Log and fail the test if any step fails
+            Assert.fail("❌ Failed to decline cookies: " + e.getMessage());
+        }
+    }
+
 
     public void enterFirstName(String firstName) {
         page.fill("#firstName", firstName);

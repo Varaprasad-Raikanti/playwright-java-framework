@@ -1,1 +1,0 @@
-{"uuid":"66b21431-9a54-4402-aa57-0bb56d1d1dc1","name":"tests.RegistrationTest.setup","children":["3356c532-5d42-42fa-a416-a7d726759163"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1754282590459,"stop":1754282595354}],"afters":[],"start":1754282590455,"stop":1754282595354}

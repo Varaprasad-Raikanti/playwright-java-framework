@@ -17,7 +17,7 @@ import java.util.List;
 @Feature("User Login Form")
 //@Listeners({io.qameta.allure.testng.AllureTestNg.class})
 @Listeners(utils.TestListener.class)
-public class OXO_ST_001_logIn  {
+public class OXO_ST_001_logIn2 {
     private Page page;
     @Step("Load config and initialize Playwright")
     @BeforeClass
@@ -50,7 +50,7 @@ public class OXO_ST_001_logIn  {
         System.out.println("Running test with data: " + testData);
 
         OXOHelper OXO = new OXOHelper(page);
-        OXO.aceept_Cookies();
+        OXO.decline_Cookies();
     }
 
     @DataProvider(name = "Login")

@@ -3,6 +3,8 @@ package base;
 import com.microsoft.playwright.*;
 import utils.ConfigReader;
 
+import java.awt.*;
+
 public class TestBase {
 
     protected Playwright playwright;
@@ -17,7 +19,6 @@ public class TestBase {
         boolean isHeadless = Boolean.parseBoolean(ConfigReader.getProperty("headless"));
         String baseUrl = ConfigReader.getProperty("base.url");
 
-        // Debug log
         System.out.println("Browser: " + browserName);
         System.out.println("Headless: " + isHeadless);
         System.out.println("Base URL: " + baseUrl);
@@ -26,21 +27,45 @@ public class TestBase {
             throw new RuntimeException("Property 'browser' is missing in config.properties");
         }
 
+        // Get screen resolution for full screen size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = (int) screenSize.getWidth();
+        int screenHeight = (int) screenSize.getHeight();
+
+        BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
+            .setHeadless(isHeadless);
+
+        // Add --start-maximized only for Chromium or Chrome
+        if (browserName.equalsIgnoreCase("chromium") || browserName.equalsIgnoreCase("chrome")) {
+            launchOptions.setArgs(java.util.Arrays.asList("--start-maximized"));
+        }
+
         switch (browserName.toLowerCase()) {
             case "chromium":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless));
+                browser = playwright.chromium().launch(launchOptions);
                 break;
+
             case "firefox":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless));
+                browser = playwright.firefox().launch(launchOptions);
                 break;
+
             case "webkit":
-                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(isHeadless));
+                browser = playwright.webkit().launch(launchOptions);
                 break;
+
+            case "chrome":
+                launchOptions.setChannel("chrome"); // Use actual Chrome browser
+                browser = playwright.chromium().launch(launchOptions);
+                break;
+
             default:
                 throw new IllegalArgumentException("Unsupported browser: " + browserName);
         }
 
-        context = browser.newContext();
+        // Set viewport size to full screen (simulate maximize)
+        context = browser.newContext(new Browser.NewContextOptions()
+            .setViewportSize(screenWidth, screenHeight));
+
         page = context.newPage();
 
         if (baseUrl != null && !baseUrl.trim().isEmpty()) {
