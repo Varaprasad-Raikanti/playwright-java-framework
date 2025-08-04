@@ -5,9 +5,10 @@
     <classes>
       <class name="tests.RegistrationTest">
         <methods>
-          <include name="setUp"/>
+          <include name="setup"/>
           <include name="tearDown"/>
-          <include name="testRegistrationForm"/>
+          <include name="setupConfig"/>
+          <include name="testRegistrationForm" invocation-numbers="0"/>
         </methods>
       </class> <!-- tests.RegistrationTest -->
     </classes>

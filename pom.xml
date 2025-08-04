@@ -14,26 +14,31 @@
     </properties>
 
     <dependencies>
-        <!-- Playwright Java -->
+        <!-- Playwright -->
         <dependency>
             <groupId>com.microsoft.playwright</groupId>
             <artifactId>playwright</artifactId>
             <version>1.44.0</version>
         </dependency>
-        
-        <!-- Log4j2 API -->
-  <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-api</artifactId>
-    <version>2.20.0</version>
-  </dependency>
 
-  <!-- Log4j2 Core (Required for implementation) -->
-  <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-core</artifactId>
-    <version>2.20.0</version>
-  </dependency>
+        <!-- Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
+        </dependency>
+
+        <!-- Log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.20.0</version>
+        </dependency>
 
         <!-- TestNG -->
         <dependency>
@@ -42,7 +47,7 @@
             <version>7.10.1</version>
         </dependency>
 
-        <!-- Apache POI (Excel) -->
+        <!-- Excel POI -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -54,7 +59,7 @@
             <version>5.2.3</version>
         </dependency>
 
-        <!-- Allure TestNG Adapter -->
+        <!-- Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
@@ -64,7 +69,7 @@
 
     <build>
         <plugins>
-            <!-- Compiler Plugin -->
+            <!-- Java Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -75,20 +80,22 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire Plugin for running TestNG tests -->
+            <!-- Surefire Plugin for TestNG -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.2.5</version>
+    <configuration>
+        <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/Testdemo.xml</suiteXmlFile>
+        </suiteXmlFiles>
+        <testFailureIgnore>false</testFailureIgnore>
+        <useSystemClassLoader>true</useSystemClassLoader>
+    </configuration>
+</plugin>
 
-            <!-- Allure Report Plugin -->
+
+            <!-- Allure Reporting -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
