@@ -1,100 +1,99 @@
 package utils;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelUtils {
 
-    // Existing method: Read one row of test data
-    public static Map<String, String> getTestData(String excelPath, String sheetName, int rowNumber) {
-        Map<String, String> data = new HashMap<>();
-        try {
-            FileInputStream fis = new FileInputStream(excelPath);
-            Workbook workbook = new XSSFWorkbook(fis);
-            Sheet sheet = workbook.getSheet(sheetName);
-            Row headerRow = sheet.getRow(0);
-            Row dataRow = sheet.getRow(rowNumber);
+	public static Map<String, Map<String, String>> readTestData(String brandName, String sheetName) {
+		Map<String, Map<String, String>> sectionDataMap = new LinkedHashMap<>();
+		String filePath = "src/test/resources/TestData/" + brandName + "/" + brandName + "TestData.xlsx";
 
-            for (int i = 0; i < headerRow.getLastCellNum(); i++) {
-                Cell headerCell = headerRow.getCell(i);
-                Cell valueCell = dataRow.getCell(i);
+		try (FileInputStream fis = new FileInputStream(filePath); Workbook workbook = WorkbookFactory.create(fis)) {
 
-                String key = headerCell.getStringCellValue();
-                String value = "";
+			Sheet sheet = workbook.getSheet(sheetName);
+			if (sheet == null) {
+				throw new RuntimeException("Sheet not found: " + sheetName);
+			}
 
-                if (valueCell != null) {
-                    if (valueCell.getCellType() == CellType.STRING) {
-                        value = valueCell.getStringCellValue();
-                    } else if (valueCell.getCellType() == CellType.NUMERIC) {
-                        value = String.valueOf((long) valueCell.getNumericCellValue());
-                    }
-                }
+			String currentSection = null;
+			List<String> headers = new ArrayList<>();
+			Map<String, String> dataMap = null;
 
-                data.put(key, value);
-            }
+			for (Row row : sheet) {
+				Cell firstCell = row.getCell(0);
 
-            workbook.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
+				if (firstCell == null || firstCell.getCellType() == CellType.BLANK) {
+					continue;
+				}
 
-    // ✅ New method: Read all rows (excluding header) from the sheet
-    public static List<Map<String, String>> readAllData(String excelPath, String sheetName) {
-        List<Map<String, String>> dataList = new ArrayList<>();
-        try {
-            FileInputStream fis = new FileInputStream(excelPath);
-            Workbook workbook = new XSSFWorkbook(fis);
-            Sheet sheet = workbook.getSheet(sheetName);
-            Row headerRow = sheet.getRow(0);
+				String cellValue = firstCell.getStringCellValue().trim();
 
-            int totalRows = sheet.getLastRowNum();
-            int totalCols = headerRow.getLastCellNum();
+				// Section Header starts with #
+				if (cellValue.startsWith("#")) {
+					currentSection = cellValue.substring(1).trim();
+					headers.clear();
+					dataMap = new LinkedHashMap<>();
+				} else if (currentSection != null && headers.isEmpty()) {
+					// Header Row
+					int lastColumn = row.getLastCellNum();
+					for (int i = 0; i < lastColumn; i++) {
+						Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+						cell.setCellType(CellType.STRING);
+						headers.add(cell.getStringCellValue().trim());
+					}
+				} else if (currentSection != null && !headers.isEmpty() && dataMap != null) {
+					// Data Row
+					for (int i = 0; i < headers.size(); i++) {
+						Cell cell = row.getCell(i, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+						cell.setCellType(CellType.STRING);
+						dataMap.put(headers.get(i), cell.getStringCellValue().trim());
+					}
+					// Store only one data row per section
+					sectionDataMap.put(currentSection, new LinkedHashMap<>(dataMap));
+					dataMap.clear();
+				}
+			}
 
-            for (int i = 1; i <= totalRows; i++) {
-                Row currentRow = sheet.getRow(i);
-                if (currentRow == null) continue;
+		} catch (IOException e) {
+			throw new RuntimeException("Error reading Excel file: " + e.getMessage(), e);
+		}
 
-                Map<String, String> rowData = new HashMap<>();
+		return sectionDataMap;
+	}
 
-                for (int j = 0; j < totalCols; j++) {
-                    Cell headerCell = headerRow.getCell(j);
-                    Cell valueCell = currentRow.getCell(j);
+	// ✅ ExcelUtils.java (add this method)
+	public static Iterator<Object[]> getExcelData(String brandName, String... sectionNames) {
+		// Read all section data from Excel
+		Map<String, Map<String, String>> allSections = readTestData(brandName, "Sheet1");
 
-                    String key = headerCell.getStringCellValue();
-                    String value = "";
+		// Prepare a single test row containing requested sections
+		Map<String, Map<String, String>> filteredSections = new LinkedHashMap<>();
 
-                    if (valueCell != null) {
-                        if (valueCell.getCellType() == CellType.STRING) {
-                            value = valueCell.getStringCellValue();
-                        } else if (valueCell.getCellType() == CellType.NUMERIC) {
-                            value = String.valueOf((long) valueCell.getNumericCellValue());
-                        }
-                    }
+		for (String sectionName : sectionNames) {
+			if (allSections.containsKey(sectionName)) {
+				filteredSections.put(sectionName, allSections.get(sectionName));
+			} else {
+				throw new RuntimeException("Section not found in Excel: " + sectionName);
+			}
+		}
 
-                    rowData.put(key, value);
-                }
+		// Wrap it in Object[][] structure for TestNG DataProvider
+		List<Object[]> data = new ArrayList<>();
+		data.add(new Object[] { filteredSections });
+		return data.iterator();
+	}
 
-                dataList.add(rowData);
-            }
-
-            workbook.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return dataList;
-    }
-    
-    public static Iterator<Object[]> getExcelData(String filePath, String sheetName) {
-        List<Map<String, String>> allData = ExcelUtils.readAllData(filePath, sheetName);
-        return allData.stream().map(data -> new Object[]{data}).iterator();
-    }
 }

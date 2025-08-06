@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Aug 04 14:02:25 IST 2025</td>
+<td>Started on:</td><td>Wed Aug 06 20:28:57 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>5 seconds (5840 ms)</td>
+<tr><td>Total time:</td><td>12 seconds (12608 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,39 +75,11 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.OXO.OXO_ST_001_logIn2.loginForm()'><b>loginForm</b><br>Test class: tests.OXO.OXO_ST_001_logIn2<br>Test method: Verify Login form submission with valid data<br>Parameters: {Email=john@example.com, LastName=Doe, Mobile=9876543210, FirstName=John}</td>
-<td><div><pre>com.microsoft.playwright.PlaywrightException: Error {
-  message=&apos;Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-  name=&apos;Error
-  stack=&apos;Error: Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-    at unexpected (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:68:12)
-    at consumeSimpleSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:211:51)
-    at consumeComplexSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:140:19)
-    at consumeArgument (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:120:12)
-    at consumeFunctionArguments (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:107:21)
-    at parseCSS (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:228:18)
-    at parseSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:50:49)
-    at splitSelectorByFrame (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:99:20)
-    at FrameSelectors.resolveFrameForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:110:66)
-    at FrameSelectors.resolveInjectedForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:152:33)
-}
-Call log:
-- waiting for 
-
-	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
-	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
-	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
-	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
-	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
-	at com.microsoft.playwright.impl.PageImpl.lambda$click$18(PageImpl.java:677)
-	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
-	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
-	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
-	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
-	at com.microsoft.playwright.impl.PageImpl.click(PageImpl.java:676)
-	at com.microsoft.playwright.Page.click(Page.java:3952)
-	at pages.OXOHelper.decline_Cookies(OXOHelper.java:20)
-	at tests.OXO.OXO_ST_001_logIn2.loginForm(OXO_ST_001_logIn2.java:52)
+<td title='tests.Drybar.DrybarRegCheckout.DrybarReg_Checkout()'><b>DrybarReg_Checkout</b><br>Test class: tests.Drybar.DrybarRegCheckout<br>Test method: Order place with Register User CC Payment </td>
+<td><div><pre>java.lang.AssertionError: Login failed or SignOut button not visible/enabled
+	at org.testng.Assert.fail(Assert.java:99)
+	at pages.Drybar.DrybarHelper.login(DrybarHelper.java:74)
+	at tests.Drybar.DrybarRegCheckout.DrybarReg_Checkout(DrybarRegCheckout.java:47)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
@@ -134,61 +106,11 @@ Call log:
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: com.microsoft.playwright.impl.DriverException: Error {
-  message=&apos;Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-  name=&apos;Error
-  stack=&apos;Error: Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-    at unexpected (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:68:12)
-    at consumeSimpleSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:211:51)
-    at consumeComplexSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:140:19)
-    at consumeArgument (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:120:12)
-    at consumeFunctionArguments (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:107:21)
-    at parseCSS (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:228:18)
-    at parseSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:50:49)
-    at splitSelectorByFrame (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:99:20)
-    at FrameSelectors.resolveFrameForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:110:66)
-    at FrameSelectors.resolveInjectedForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:152:33)
-}
-Call log:
-- waiting for 
-
-	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
-	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
-	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
-	... 38 more
-</pre></div><a href='#' onClick='toggleBox("stack-trace1755634886", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1755634886'><pre>com.microsoft.playwright.PlaywrightException: Error {
-  message=&apos;Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-  name=&apos;Error
-  stack=&apos;Error: Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-    at unexpected (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:68:12)
-    at consumeSimpleSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:211:51)
-    at consumeComplexSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:140:19)
-    at consumeArgument (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:120:12)
-    at consumeFunctionArguments (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:107:21)
-    at parseCSS (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:228:18)
-    at parseSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:50:49)
-    at splitSelectorByFrame (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:99:20)
-    at FrameSelectors.resolveFrameForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:110:66)
-    at FrameSelectors.resolveInjectedForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:152:33)
-}
-Call log:
-- waiting for 
-
-	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:56)
-	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
-	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:130)
-	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
-	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
-	at com.microsoft.playwright.impl.PageImpl.lambda$click$18(PageImpl.java:677)
-	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
-	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
-	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
-	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
-	at com.microsoft.playwright.impl.PageImpl.click(PageImpl.java:676)
-	at com.microsoft.playwright.Page.click(Page.java:3952)
-	at pages.OXOHelper.decline_Cookies(OXOHelper.java:20)
-	at tests.OXO.OXO_ST_001_logIn2.loginForm(OXO_ST_001_logIn2.java:52)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1825984232", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1825984232'><pre>java.lang.AssertionError: Login failed or SignOut button not visible/enabled
+	at org.testng.Assert.fail(Assert.java:99)
+	at pages.Drybar.DrybarHelper.login(DrybarHelper.java:74)
+	at tests.Drybar.DrybarRegCheckout.DrybarReg_Checkout(DrybarRegCheckout.java:47)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
@@ -215,31 +137,9 @@ Call log:
 	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: com.microsoft.playwright.impl.DriverException: Error {
-  message=&apos;Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-  name=&apos;Error
-  stack=&apos;Error: Unexpected token &quot;&quot; while parsing selector &quot;&quot;
-    at unexpected (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:68:12)
-    at consumeSimpleSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:211:51)
-    at consumeComplexSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:140:19)
-    at consumeArgument (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:120:12)
-    at consumeFunctionArguments (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:107:21)
-    at parseCSS (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\cssParser.js:228:18)
-    at parseSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:50:49)
-    at splitSelectorByFrame (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\utils\isomorphic\selectorParser.js:99:20)
-    at FrameSelectors.resolveFrameForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:110:66)
-    at FrameSelectors.resolveInjectedForSelector (C:\Users\varap\AppData\Local\Temp\playwright-java-578040191254366665\package\lib\server\frameSelectors.js:152:33)
-}
-Call log:
-- waiting for 
-
-	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:259)
-	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:211)
-	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
-	... 38 more
 </pre></div></td>
-<td>0</td>
-<td>tests.OXO.OXO_ST_001_logIn2@9816741</td></tr>
+<td>6</td>
+<td>tests.Drybar.DrybarRegCheckout@1c9b0314</td></tr>
 </table><p>
 </body>
 </html>
