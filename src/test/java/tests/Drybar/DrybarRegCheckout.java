@@ -48,6 +48,7 @@ public class DrybarRegCheckout extends TestBase {
 			db.searchProduct("ProductName");
 			db.addToCart();
 			db.fillShippingAddress("ShippingAddress");
+			db.fillPaymentDetails("PaymentDetails");
 
 		} catch (Exception e) {
 			Assert.fail("Test failed: " + e.getMessage());

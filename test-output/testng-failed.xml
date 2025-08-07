@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.Drybar.DrybarRegCheckout">
+      <class name="tests.Drybar.DrybarGuestCheckout">
         <methods>
-          <include name="DrybarReg_Checkout"/>
-          <include name="setupConfig"/>
           <include name="setup"/>
+          <include name="DrybarGuest_Checkout"/>
           <include name="tearDown"/>
+          <include name="setupConfig"/>
         </methods>
-      </class> <!-- tests.Drybar.DrybarRegCheckout -->
+      </class> <!-- tests.Drybar.DrybarGuestCheckout -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
