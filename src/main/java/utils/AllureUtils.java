@@ -1,41 +1,58 @@
 package utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
 import java.util.Properties;
 
 public class AllureUtils {
 
-	public static void writeEnvToAllure() {
+	public static void writeEnvToAllure(String appName) {
+		Properties props = new Properties();
+
 		try {
-			Properties props = new Properties();
-
-			// Pull from ConfigReader
-			props.setProperty("Environment", ConfigReader.getProperty("Environment"));
-			props.setProperty("Base URL", ConfigReader.getProperty("url"));
-			props.setProperty("Browser", ConfigReader.getProperty("browser"));
-			props.setProperty("Headless", ConfigReader.getProperty("headless"));
-			props.setProperty("Execution Time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-			File file = new File("allure-results/environment.properties");
-			file.getParentFile().mkdirs();
-
-			try (FileOutputStream fos = new FileOutputStream(file)) {
-				props.store(fos, "Allure Environment Info");
+			// Load fresh config from file
+			File configFile = new File("src/test/resources/config/" + appName + "/config.properties");
+			Properties configProps = new Properties();
+			try (FileInputStream fis = new FileInputStream(configFile)) {
+				configProps.load(fis);
 			}
 
-			System.out.println("✅ Allure environment metadata written to allure-results/environment.properties");
-		} catch (Exception e) {
+			// Get values from loaded config
+			String url = configProps.getProperty("url", "N/A");
+			String browser = configProps.getProperty("browser", "N/A");
+			String osName = System.getProperty("os.name");
+
+			System.out.println("DEBUG: Loaded config for brand '" + appName + "'");
+			System.out.println("DEBUG: URL = " + url);
+			System.out.println("DEBUG: Browser = " + browser);
+			System.out.println("DEBUG: OS = " + osName);
+
+			// Set to allure environment props
+			props.setProperty("URL", url);
+			props.setProperty("Browser", browser);
+			props.setProperty("OS", osName);
+
+			// Ensure allure-results directory exists
+			File allureResultsDir = new File("allure-results");
+			if (!allureResultsDir.exists()) {
+				boolean created = allureResultsDir.mkdirs();
+				System.out.println("DEBUG: allure-results folder created: " + created);
+			}
+
+			// Write to environment.properties (overwrite)
+			File envFile = new File(allureResultsDir, "environment.properties");
+			try (FileOutputStream fos = new FileOutputStream(envFile, false)) {
+				props.store(fos, "Allure Environment Properties");
+			}
+
+			System.out.println("✅ Allure environment file created at: " + envFile.getAbsolutePath());
+
+		} catch (IOException e) {
 			System.err.println("❌ Failed to write Allure environment metadata: " + e.getMessage());
 			e.printStackTrace();
 		}
-	}
-
-	// Optional: Add metadata to each test (if required)
-	public static void attachTestMetadataToReport() {
-		// For future enhancements
 	}
 
 }

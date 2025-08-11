@@ -1,4 +1,4 @@
-package tests.OXO;
+package tests.Drybar;
 
 import java.util.Map;
 
@@ -13,35 +13,34 @@ import com.microsoft.playwright.Page;
 import base.TestBase;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import pages.OXO.OXOHelper;
+import pages.Drybar.DrybarHelper;
 import utils.ExcelUtils;
 import utils.PlaywrightManager;
 import utils.TestSetup;
 
-@Epic("OXO User Login")
-@Feature("Login Functionality")
+@Epic("Drybar Account Creation")
+@Feature("Checkout Create New User")
 @Listeners(utils.TestListener.class)
-public class OXO_ST_001_logIn extends TestBase {
+public class DrybarCreateAccount extends TestBase {
 
 	private Page page;
-	private OXOHelper OXO;
-	private Map<String, Map<String, String>> testData;
+	private DrybarHelper drybar;
 
 	@BeforeMethod
 	public void setup() {
-		TestSetup.initializePlaywrightWithConfig("OXO");
+		TestSetup.initializePlaywrightWithConfig("Drybar");
 		page = TestSetup.initializePageAndNavigate();
-		testData = ExcelUtils.readTestData("OXO", "Sheet1"); // Adjust sheet name as needed
-		OXO = new OXOHelper(page, testData);
+		Map<String, Map<String, String>> data = ExcelUtils.readTestData("Drybar", "Sheet1");
+		drybar = new DrybarHelper(page, data);
 	}
 
-	@Test(description = "Verify Login form submission with valid data")
-	public void loginForm() {
+	@Test(description = "Create an Account for Drybar")
+	public void DrybarReg_Checkout() {
 		try {
-			OXO.aceept_Cookies();
-
+			drybar.acceptCookies();
+			drybar.createAccount("AccountDetails");
 		} catch (Exception e) {
-			Assert.fail("Login test failed: " + e.getMessage());
+			Assert.fail("Test failed: " + e.getMessage());
 		}
 	}
 

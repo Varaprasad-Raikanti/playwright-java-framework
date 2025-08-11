@@ -121,6 +121,34 @@ public class DrybarHelper {
 		}
 	}
 
+	public void createAccount(String sectionName) {
+		try {
+			Map<String, String> data = testDataSections.get(sectionName);
+
+			waitUtils.waitUntilElementEnabled(page, "//button[@id='customer-menu']");
+			page.click("//button[@id='customer-menu']");
+			waitUtils.waitUntilElementEnabled(page, "//a[@title='Create an Account']");
+			page.click("//a[@title='Create an Account']");
+			waitUtils.waitUntilElementEnabled(page, "//span[text()='Sign Up']");
+
+			page.fill("#firstname", data.get("FirstName"));
+			page.fill("#lastname", data.get("LastName"));
+			String uniqueEmail = data.get("NewEmail") + System.currentTimeMillis() + "@gmail.com";
+			page.fill("#email_address", uniqueEmail);
+			page.fill("#password", data.get("NewPassword"));
+			page.fill("#password-confirmation", data.get("confirmNewPassword"));
+			page.click("//span[text()='Sign Up']");
+			waitUtils.waitUntilPageIsReady(page);
+			waitUtils.validateCurrentUrl(page, ".drybar.com/customer/account/");
+			waitUtils.validatePageTitle(page, "Dashboard");
+
+		} catch (Exception | AssertionError e) {
+			System.out.println("❌ Create Account failed: " + e.getMessage());
+			ScreenshotUtils.attachScreenshot(page, "CraeteAccount");
+			Assert.fail("❌ CraeteAccount failed");
+		}
+	}
+
 	public void searchProduct(String sectionName) {
 		try {
 			Map<String, String> data = testDataSections.get(sectionName);

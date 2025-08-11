@@ -1,6 +1,7 @@
 package pages.OXO;
 
 import java.io.ByteArrayInputStream;
+import java.util.Map;
 
 import org.testng.Assert;
 
@@ -9,10 +10,13 @@ import com.microsoft.playwright.Page;
 import io.qameta.allure.Allure;
 
 public class OXOHelper {
-	private final Page page;
 
-	public OXOHelper(Page page) {
+	private Page page;
+	private Map<String, Map<String, String>> testDataSections;
+
+	public OXOHelper(Page page, Map<String, Map<String, String>> testDataSections) {
 		this.page = page;
+		this.testDataSections = testDataSections;
 	}
 
 	public void aceept_Cookies() {
@@ -40,6 +44,10 @@ public class OXOHelper {
 			// ❌ Fail the test with message
 			Assert.fail("❌ Failed to decline cookies: " + e.getMessage());
 		}
+	}
+
+	public void login(String sectionName) {
+
 	}
 
 	public void enterFirstName(String firstName) {

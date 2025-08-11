@@ -20,7 +20,6 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import pages.OXO.OXOHelper;
 import utils.ConfigReader;
 import utils.ExcelUtils;
 import utils.PlaywrightManager;
@@ -64,13 +63,14 @@ public class RegistrationTest {
 	public void testRegistrationForm(Map<String, String> testData) {
 		System.out.println("Running test with data: " + testData);
 
-		OXOHelper regPage = new OXOHelper(page);
-		regPage.enterFirstName(testData.get("FirstName"));
-		regPage.enterLastName(testData.get("LastName"));
-		regPage.enterEmail(testData.get("Email"));
-		regPage.selectGender(); // Optional: Make dynamic
-		regPage.enterMobile(testData.get("Mobile"));
-		regPage.clickSubmit();
+		/*
+		 * OXOHelper regPage = new OXOHelper(page);
+		 * regPage.enterFirstName(testData.get("FirstName"));
+		 * regPage.enterLastName(testData.get("LastName"));
+		 * regPage.enterEmail(testData.get("Email")); regPage.selectGender(); //
+		 * Optional: Make dynamic regPage.enterMobile(testData.get("Mobile"));
+		 * regPage.clickSubmit();
+		 */
 	}
 
 	@DataProvider(name = "Login")

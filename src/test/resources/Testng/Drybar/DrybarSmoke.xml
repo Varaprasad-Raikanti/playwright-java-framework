@@ -5,6 +5,11 @@
     <listener class-name="utils.TestListener"/>
 </listeners>
 
+     <test name="Drybar New Account Creation">
+        <classes>
+            <class name="tests.Drybar.DrybarCreateAccount"/>
+        </classes>
+    </test>
     
     <test name="Drybar Guest User Checkout">
         <classes>
@@ -16,4 +21,6 @@
             <class name="tests.Drybar.DrybarRegCheckout"/>
         </classes>
     </test>
+    
+
 </suite>
