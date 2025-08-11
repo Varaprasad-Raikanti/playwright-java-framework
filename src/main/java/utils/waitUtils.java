@@ -83,7 +83,7 @@ public class waitUtils {
 			System.out.println("✅ Current URL: " + currentUrl);
 
 			if (!currentUrl.contains(expectedPartialUrl)) {
-				System.out.println("❌ Expected partial URL not found in current URL.");
+				System.out.println("❌ Expected URL not found in current URL.");
 				Assert.fail("Current URL does not contain expected value. Expected to contain: " + expectedPartialUrl
 						+ ", but found: " + currentUrl);
 			} else {
@@ -93,6 +93,25 @@ public class waitUtils {
 		} catch (Exception e) {
 			System.out.println("❌ Exception while validating URL: " + e.getMessage());
 			Assert.fail("Exception occurred during URL validation");
+		}
+	}
+
+	public static void validatePageTitle(Page page, String expectedPartialUrl) {
+		try {
+			String currentTitle = page.title();
+			System.out.println("✅ Current Page Title: " + currentTitle);
+
+			if (!currentTitle.contains(expectedPartialUrl)) {
+				System.out.println("❌ Expected Title not found in current Title.");
+				Assert.fail("Current Title does not match to expected Title. Expected : " + expectedPartialUrl
+						+ ", but found: " + currentTitle);
+			} else {
+				System.out.println("✅ Title validation passed : " + expectedPartialUrl);
+			}
+
+		} catch (Exception e) {
+			System.out.println("❌ Exception while validating Title: " + e.getMessage());
+			Assert.fail("Exception occurred during Title validation");
 		}
 	}
 
