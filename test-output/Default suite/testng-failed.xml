@@ -3,15 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.OXO.OXO_ST_001_logIn">
+      <class name="tests.Drybar.Drybar_Registered_Checkout_CreditCard">
         <methods>
           <include name="tearDown"/>
-          <include name="setupConfig"/>
           <include name="setup"/>
-          <include name="loginForm"/>
+          <include name="Drybar_Registered_CheckoutCreditCard"/>
           <include name="setupAllureEnv"/>
         </methods>
-      </class> <!-- tests.OXO.OXO_ST_001_logIn -->
+      </class> <!-- tests.Drybar.Drybar_Registered_Checkout_CreditCard -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

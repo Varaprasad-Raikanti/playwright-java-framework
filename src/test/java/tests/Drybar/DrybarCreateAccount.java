@@ -13,13 +13,15 @@ import com.microsoft.playwright.Page;
 import base.TestBase;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import pages.Drybar.DrybarHelper;
 import utils.ExcelUtils;
 import utils.PlaywrightManager;
 import utils.TestSetup;
 
 @Epic("Drybar Account Creation")
-@Feature("Checkout Create New User")
+@Feature("Create New User For Drybar")
 @Listeners(utils.TestListener.class)
 public class DrybarCreateAccount extends TestBase {
 
@@ -35,7 +37,8 @@ public class DrybarCreateAccount extends TestBase {
 	}
 
 	@Test(description = "Create an Account for Drybar")
-	public void DrybarReg_Checkout() {
+	@Severity(SeverityLevel.BLOCKER)
+	public void Drybar_CreateAccount() {
 		try {
 			drybar.acceptCookies();
 			drybar.createAccount("AccountDetails");

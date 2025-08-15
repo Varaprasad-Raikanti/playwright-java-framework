@@ -18,7 +18,7 @@ public class waitUtils {
 			System.out.println("✅ Page fully loaded.");
 		} catch (Exception e) {
 			System.out.println("❌ Failed while waiting for page to load: " + e.getMessage());
-			ScreenshotUtils.attachScreenshot(page, "waitUntilPageIsReady");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "waitUntilPageIsReady");
 			Assert.fail("Page load failed");
 		}
 	}
@@ -31,7 +31,7 @@ public class waitUtils {
 			System.out.println("✅ Element visible: " + selector);
 		} catch (Exception e) {
 			System.out.println("❌ Element not visible: " + selector + " - " + e.getMessage());
-			ScreenshotUtils.attachScreenshot(page, "waitUntilElementVisible");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "waitUntilElementVisible");
 			Assert.fail("Element not visible: " + selector);
 		}
 	}
@@ -44,7 +44,7 @@ public class waitUtils {
 			System.out.println("✅ Element attached: " + selector);
 		} catch (Exception e) {
 			System.out.println("❌ Element not attached: " + selector + " - " + e.getMessage());
-			ScreenshotUtils.attachScreenshot(page, "waitUntilElementAttached");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "waitUntilElementAttached");
 			Assert.fail("Element not attached: " + selector);
 		}
 	}
@@ -58,12 +58,13 @@ public class waitUtils {
 			System.out.println("✅ Element detached: " + selector);
 		} catch (Exception e) {
 			System.out.println("❌ Element not detached: " + selector + " - " + e.getMessage());
-			ScreenshotUtils.attachScreenshot(page, "waitUntilElementDetached");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "waitUntilElementDetached");
 			Assert.fail("Element not detached: " + selector);
 		}
 	}
 
 	// ✅ 5. Wait for element to be enabled and interactable
+
 	public static void waitUntilElementEnabled(Page page, String selector) {
 		try {
 			Locator element = page.locator(selector);
@@ -72,7 +73,7 @@ public class waitUtils {
 			System.out.println("✅ Element is enabled: " + selector);
 		} catch (Exception e) {
 			System.out.println("❌ Element not enabled: " + selector + " - " + e.getMessage());
-			ScreenshotUtils.attachScreenshot(page, "waitUntilElementEnabled");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "waitUntilElementEnabled");
 			Assert.fail("Element not enabled: " + selector);
 		}
 	}
@@ -145,11 +146,11 @@ public class waitUtils {
 			System.out.println("✅ URL and Title contain expected values.");
 
 		} catch (AssertionError ae) {
-			ScreenshotUtils.attachScreenshot(page, "validatePageUrlAndTitleContains");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "validatePageUrlAndTitleContains");
 			System.out.println("❌ Assertion failed: " + ae.getMessage());
 			throw ae;
 		} catch (Exception e) {
-			ScreenshotUtils.attachScreenshot(page, "validatePageUrlAndTitleContains");
+			ScreenshotUtils.attachScreenshot(page, "Failuure", "validatePageUrlAndTitleContains");
 			System.out.println("❌ Unexpected error during URL/Title contains validation: " + e.getMessage());
 			Assert.fail("URL/Title contains validation failed: " + e.getMessage());
 		}

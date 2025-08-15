@@ -5,22 +5,32 @@
     <listener class-name="utils.TestListener"/>
 </listeners>
 
-     <test name="Drybar New Account Creation">
+    <test name="Drybar New Account Creation">
         <classes>
             <class name="tests.Drybar.DrybarCreateAccount"/>
         </classes>
     </test>
     
-    <test name="Drybar Guest User Checkout">
+     <test name="Drybar Order placement with Guest User Credit Card Payment">
         <classes>
-            <class name="tests.Drybar.DrybarGuestCheckout"/>
+            <class name="tests.Drybar.DrybarGuestCheckout_CC"/>
         </classes>
     </test>
-    <test name="Drybar Registered User Checkout">
+    <test name="Drybar Order placement with Registered User Credit Card Payment">
         <classes>
-            <class name="tests.Drybar.DrybarRegCheckout"/>
+            <class name="tests.Drybar.Drybar_Registered_Checkout_CreditCard"/>
         </classes>
     </test>
     
-
+    <test name="Drybar Shopping Cart Page Validation - Items, buttons, Order Summary">
+        <classes>
+            <class name="tests.Drybar.shoppingCart_Validation"/>
+        </classes>
+    </test>
+    
+    <test name="Drybar Order placement with Guest User PayPal Payment">
+        <classes>
+            <class name="tests.Drybar.DrybarGuestCheckout_PayPal"/>
+        </classes>
+    </test>
 </suite>

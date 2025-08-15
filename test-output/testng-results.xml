@@ -2,28 +2,28 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-08-11T17:29:29 IST" name="Default suite" finished-at="2025-08-11T17:29:39 IST" duration-ms="9702">
+  <suite started-at="2025-08-14T19:38:46 IST" name="Default suite" finished-at="2025-08-14T19:39:57 IST" duration-ms="70874">
     <groups>
     </groups>
-    <test started-at="2025-08-11T17:29:29 IST" name="Default test" finished-at="2025-08-11T17:29:39 IST" duration-ms="9702">
-      <class name="tests.OXO.OXO_ST_001_logIn">
-        <test-method is-config="true" signature="setupAllureEnv()[pri:0, instance:tests.OXO.OXO_ST_001_logIn@24c1b2d2]" started-at="2025-08-11T17:29:29 IST" name="setupAllureEnv" finished-at="2025-08-11T17:29:29 IST" duration-ms="22" status="PASS">
+    <test started-at="2025-08-14T19:38:46 IST" name="Default test" finished-at="2025-08-14T19:39:57 IST" duration-ms="70874">
+      <class name="tests.Drybar.DrybarGuestCheckout_CC">
+        <test-method is-config="true" signature="setupAllureEnv()[pri:0, instance:tests.Drybar.DrybarGuestCheckout_CC@23941fb4]" started-at="2025-08-14T19:38:46 IST" name="setupAllureEnv" finished-at="2025-08-14T19:38:46 IST" duration-ms="19" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupAllureEnv -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:tests.OXO.OXO_ST_001_logIn@24c1b2d2]" started-at="2025-08-11T17:29:29 IST" name="setup" finished-at="2025-08-11T17:29:38 IST" duration-ms="9113" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.Drybar.DrybarGuestCheckout_CC@23941fb4]" started-at="2025-08-14T19:38:46 IST" name="setup" finished-at="2025-08-14T19:38:52 IST" duration-ms="5793" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="loginForm()[pri:0, instance:tests.OXO.OXO_ST_001_logIn@24c1b2d2]" started-at="2025-08-11T17:29:38 IST" name="loginForm" description="Verify Login form submission with valid data" finished-at="2025-08-11T17:29:38 IST" duration-ms="178" status="PASS">
+        <test-method signature="DrybarGuest_Checkout_Creditcard()[pri:0, instance:tests.Drybar.DrybarGuestCheckout_CC@23941fb4]" started-at="2025-08-14T19:38:52 IST" name="DrybarGuest_Checkout_Creditcard" description="Order place with Guest User CC Payment" finished-at="2025-08-14T19:39:57 IST" duration-ms="64601" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginForm -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.OXO.OXO_ST_001_logIn@24c1b2d2]" started-at="2025-08-11T17:29:38 IST" name="tearDown" finished-at="2025-08-11T17:29:39 IST" duration-ms="314" status="PASS">
+        </test-method> <!-- DrybarGuest_Checkout_Creditcard -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.Drybar.DrybarGuestCheckout_CC@23941fb4]" started-at="2025-08-14T19:39:57 IST" name="tearDown" finished-at="2025-08-14T19:39:57 IST" duration-ms="398" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- tests.OXO.OXO_ST_001_logIn -->
+      </class> <!-- tests.Drybar.DrybarGuestCheckout_CC -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
