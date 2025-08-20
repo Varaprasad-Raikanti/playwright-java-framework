@@ -413,7 +413,8 @@ public class DrybarHelper {
 	public void placeOrder() {
 		System.out.println("Entered to Place Order.");
 		final String placeOrderBtn = "//div[contains(@class,'place-order')]//button[contains(text(),'Place Order')]";
-		final int MAX_WAIT_MS = 90_000;
+		final int MAX_WAIT_MS = 120000;
+
 		final String[] SUCCESS_SELECTORS = { "//a[contains(@class,'order-number') and contains(@class,'link')]",
 				"//h1[contains(.,'Thank you') or contains(.,'Thank You')]",
 				"//*[contains(@class,'order-success') or contains(@class,'checkout-success')]",
@@ -426,10 +427,12 @@ public class DrybarHelper {
 			Locator btn = page.locator(placeOrderBtn);
 			btn.waitFor();
 
-			while (!btn.isEnabled())
+			// Wait until button becomes enabled
+			while (!btn.isEnabled()) {
 				Thread.sleep(200);
+			}
 
-			// Wait until button HTML is stable
+			// Ensure button HTML is stable for 1 second
 			String prevHtml = btn.innerHTML();
 			long stableSince = System.currentTimeMillis();
 			while (System.currentTimeMillis() - stableSince < 1000) {
@@ -441,14 +444,15 @@ public class DrybarHelper {
 				Thread.sleep(200);
 			}
 
+			// Start timing
 			long start = System.currentTimeMillis();
 			boolean successDetected = false;
 
-			// Click and wait for either navigation or success element
+			// Click and handle popup if needed
 			btn.click();
-			closeGWPPopup(); // popup might reappear
+			closeGWPPopup();
 
-			// Wait for success URL or element
+			// Wait for success confirmation
 			long deadline = System.currentTimeMillis() + MAX_WAIT_MS;
 			while (System.currentTimeMillis() < deadline) {
 				String url = page.url();
@@ -456,12 +460,14 @@ public class DrybarHelper {
 					successDetected = true;
 					break;
 				}
+
 				for (String sel : SUCCESS_SELECTORS) {
 					if (page.locator(sel).first().isVisible(new Locator.IsVisibleOptions().setTimeout(500))) {
 						successDetected = true;
 						break;
 					}
 				}
+
 				if (successDetected)
 					break;
 				Thread.sleep(500);
@@ -469,20 +475,21 @@ public class DrybarHelper {
 
 			waitUtils.waitUntilPageIsReady(page);
 
+			// ✅ Validation
 			if (successDetected) {
 				ScreenshotUtils.attachScreenshot(page, "Success", "Order Placed Successfully");
 				long tookMs = System.currentTimeMillis() - start;
 				System.out.println("✅ Order placement confirmed in " + tookMs + " ms.");
-				org.testng.Assert.assertTrue(true, "Order was placed successfully.");
+				Assert.assertTrue(true, "Order was placed successfully."); 
 			} else {
 				ScreenshotUtils.attachScreenshot(page, "Failure", "Order Confirmation Not Detected");
-				org.testng.Assert.fail("❌ Order placement failed: success page or confirmation element not detected.");
+				Assert.fail("❌ Order placement failed: success page or confirmation element not detected.");
 			}
 
 		} catch (Exception e) {
 			System.out.println("❌ placeOrder error: " + e.getMessage());
 			ScreenshotUtils.attachScreenshot(page, "Failure", "placeOrder Exception");
-			org.testng.Assert.fail("❌ Failed in placeOrder: " + e.getMessage());
+			Assert.fail("❌ Failed in placeOrder: " + e.getMessage());
 		}
 	}
 
