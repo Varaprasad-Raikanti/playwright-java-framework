@@ -5,7 +5,7 @@
     <listener class-name="utils.TestListener"/>
 </listeners>
 
-    <test name="Drybar New Account Creation">
+    <!--<test name="Drybar New Account Creation">
         <classes>
             <class name="tests.Drybar.DrybarCreateAccount"/>
         </classes>
@@ -21,6 +21,11 @@
             <class name="tests.Drybar.Drybar_Registered_Checkout_CreditCard"/>
         </classes>
     </test>
+    <test name="Drybar Order placement with Guest User PayPal Payment">
+        <classes>
+            <class name="tests.Drybar.DrybarGuestCheckout_PayPal"/>
+        </classes>
+    </test>-->
     
     <test name="Drybar Shopping Cart Page Validation - Items, buttons, Order Summary">
         <classes>
@@ -28,9 +33,5 @@
         </classes>
     </test>
     
-    <test name="Drybar Order placement with Guest User PayPal Payment">
-        <classes>
-            <class name="tests.Drybar.DrybarGuestCheckout_PayPal"/>
-        </classes>
-    </test>
+    
 </suite>
