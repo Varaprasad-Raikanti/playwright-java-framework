@@ -27,6 +27,7 @@ public class DrybarHelper {
 		try {
 			waitUtils.waitUntilElementEnabled(page, "//button[@id='truste-consent-button']");
 			page.locator("//button[@id='truste-consent-button']").click();
+			Thread.sleep(6000);
 			Close_Popup();
 		} catch (Exception e) {
 			System.out.println("❌ Failed to accept cookies: " + e.getMessage());
