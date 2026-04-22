@@ -41,7 +41,7 @@ public class shoppingCart_Validation extends TestBase {
 	public void shopping_Cart_Validation() {
 		try {
 			drybar.acceptCookies();
-			drybar.login("Login");
+			//drybar.login("Login");
 			drybar.addToCart();
 			drybar.shoppingCartValidation();
 
