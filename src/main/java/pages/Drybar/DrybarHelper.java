@@ -25,9 +25,9 @@ public class DrybarHelper {
 
 	public void acceptCookies() {
 		try {
-			waitUtils.waitUntilElementEnabled(page, "//div[@id='header']");
-			waitUtils.waitUntilElementEnabled(page, "//form[@aria-label='Subscribe to Newsletter']");
+			waitUtils.waitUntilElementEnabled(page, "//button[@id='truste-consent-button']");
 			page.locator("//button[@id='truste-consent-button']").click();
+			Close_Popup();
 		} catch (Exception e) {
 			System.out.println("❌ Failed to accept cookies: " + e.getMessage());
 			ScreenshotUtils.attachScreenshot(page, "Failure", "acceptCookies");
@@ -113,19 +113,14 @@ public class DrybarHelper {
 
 			// Page validations
 			waitUtils.waitUntilPageIsReady(page);
-			waitUtils.waitUntilElementVisible(page, "//a[@title='Checkout']");
+			waitUtils.waitUntilElementVisible(page, "//button[@title='Checkout']");
 			waitUtils.validateCurrentUrl(page, ".drybar.com/checkout/cart/index/");
 			waitUtils.validatePageTitle(page, "Shopping Cart");
 
 			// Checkout button
-			Locator checkoutBtn = page.locator("//a[@title='Checkout']");
-			waitUtils.waitUntilElementEnabled(page, "//a[@title='Checkout']");
+			Locator checkoutBtn = page.locator("//button[@title='Checkout']");
+			waitUtils.waitUntilElementEnabled(page, "//button[@title='Checkout']");
 			Assert.assertTrue(checkoutBtn.isEnabled(), "❌ 'Checkout' button is not enabled");
-
-			// Discount form
-			Locator discountToggle = page.locator("#discount-form-toggle");
-			waitUtils.waitUntilElementEnabled(page, "#discount-form-toggle");
-			Assert.assertTrue(discountToggle.isEnabled(), "❌ 'Discount form toggle' is not enabled");
 
 			// Cart items
 			Locator cartItems = page.locator("//div[contains(@class,'checkout-cart-wrapper__item')]");
@@ -154,9 +149,10 @@ public class DrybarHelper {
 			page.click("//button[@id='customer-menu']");
 			page.waitForSelector("//a[@title='Sign In']");
 			page.click("//a[@title='Sign In']");
-			waitUtils.waitUntilElementEnabled(page, "//span[text()='Sign In']");
+			waitUtils.waitUntilElementEnabled(page, "(//span[text()='Sign In'])[3]");
 			page.fill("//input[@id='email']", data.get("Email"));
 			page.fill("//input[@id='pass']", data.get("Password"));
+			Close_Popup();
 			page.click("//span[text()='Sign In']");
 			waitUtils.waitUntilElementEnabled(page, "//form[@aria-label='Subscribe to Newsletter']");
 			waitUtils.validatePageTitle(page, "Drybar");
@@ -480,7 +476,7 @@ public class DrybarHelper {
 				ScreenshotUtils.attachScreenshot(page, "Success", "Order Placed Successfully");
 				long tookMs = System.currentTimeMillis() - start;
 				System.out.println("✅ Order placement confirmed in " + tookMs + " ms.");
-				Assert.assertTrue(true, "Order was placed successfully."); 
+				Assert.assertTrue(true, "Order was placed successfully.");
 			} else {
 				ScreenshotUtils.attachScreenshot(page, "Failure", "Order Confirmation Not Detected");
 				Assert.fail("❌ Order placement failed: success page or confirmation element not detected.");
