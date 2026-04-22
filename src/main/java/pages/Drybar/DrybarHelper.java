@@ -216,8 +216,10 @@ public class DrybarHelper {
 	public void SelectCategoryProduct() {
 		try {
 
+			Close_Popup();
 			waitUtils.waitUntilElementEnabled(page,
 					"//button[contains(@class,'menu-node-hair-tools')]//span[contains(text(),'Hair Tools')]");
+			Close_Popup();
 			page.click("//button[contains(@class,'menu-node-hair-tools')]//span[contains(text(),'Hair Tools')]");
 			page.waitForSelector("//span[contains(text(),'All Hair Tools')]").click();
 			waitUtils.validateCurrentUrl(page, "hair-care-tools/all-hair-care-tools");
